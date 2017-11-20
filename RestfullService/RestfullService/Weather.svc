@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="RestfullService.Service1" CodeBehind="Weather.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RestfullService.Weather" CodeBehind="Weather.svc.cs" %>

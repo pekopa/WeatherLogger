@@ -64,18 +64,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Weather.svc">
-      <BrowseToURL>~/Service1.svc</BrowseToURL>
-    </Content>
+    <Content Include="Weather.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWeather.cs" />
     <Compile Include="Weather.svc.cs">
       <DependentUpon>Weather.svc</DependentUpon>
     </Compile>
-    <Compile Include="IWeather.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
