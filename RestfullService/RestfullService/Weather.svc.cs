@@ -61,9 +61,7 @@ namespace RestfullService
                 SqlCommand selectCommand = new SqlCommand(command, databaseConnection);
 
                 var reader = selectCommand.ExecuteReader();
-
-                while (reader.Read())
-                {
+               
                     while (reader.Read())
                     {
                         weatherMeasurementList.Add(new WeatherMeasurement()
@@ -75,8 +73,7 @@ namespace RestfullService
                             WindSpeed = reader.GetDouble(4),
                             TimeStamp = reader.GetDouble(5).ToString(),
                         });
-                    }
-                }
+                    }               
             }
             return weatherMeasurementList;
         }
