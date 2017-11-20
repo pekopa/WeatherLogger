@@ -10,7 +10,7 @@ namespace RestfullService
 {
     public class Weather : IWeather
     {
-        private const string ConnectionString = "Server=tcp:boxvalueserver.database.windows.net,1433;Initial Catalog=Weathers;Persist Security Info=False;User ID={value};Password={Darmaedas1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string ConnectionString = "Server=tcp:boxvalueserver.database.windows.net,1433;Initial Catalog=Weather;Persist Security Info=False;User ID=value;Password=Darmaedas1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public List<WeatherMeasurement> GetWeatherMeasurements()
 
@@ -38,14 +38,14 @@ namespace RestfullService
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetDouble(5).ToString(),
+                        TimeStamp = reader.GetDateTime(5).ToString(),
                     });
                 }
             }
             return weatherMeasumentList;
         }
 
-        public List<WeatherMeasurement> GetWeatherMeasurement(string id)
+        public List<WeatherMeasurement> GetWeatherMeasurement(int id)
 
         {
             List<WeatherMeasurement> weatherMeasurementList = new List<WeatherMeasurement>();

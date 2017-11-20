@@ -16,8 +16,8 @@ namespace RestfullService
         List<WeatherMeasurement> GetWeatherMeasurements();
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/{id}")]
-        List<WeatherMeasurement> GetWeatherMeasurement(string id);
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/?{id}")]
+        List<WeatherMeasurement> GetWeatherMeasurement(int id);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
