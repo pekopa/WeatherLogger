@@ -10,12 +10,12 @@ namespace RestfullService
 {
     public class Weather : IWeather
     {
-        private const string ConnectionString = "Server=tcp:boxvalueserver.database.windows.net,1433;Initial Catalog=Weather;Persist Security Info=False;User ID=value;Password=Darmaedas1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string ConnectionString = "Server=tcp:boxvalueserver.database.windows.net,1433;Initial Catalog=Weathers;Persist Security Info=False;User ID={value};Password={Darmaedas1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-        public List<WeatherMeasument> GetWeatherMeasurements()
+        public List<WeatherMeasurement> GetWeatherMeasurements()
 
         {
-            List<WeatherMeasument> WeatherMeasurementsList = new List<WeatherMeasument>();
+            List<WeatherMeasurement> weatherMeasumentList = new List<WeatherMeasurement>();
 
             using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
 
@@ -31,24 +31,24 @@ namespace RestfullService
 
                 while (reader.Read())
                 {
-                    WeatherMeasurementsList.Add(new WeatherMeasument()
+                    weatherMeasumentList.Add(new WeatherMeasurement()
                     {
                         Id = reader.GetInt32(0),
                         Temperature = reader.GetDouble(1),
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetDateTime(5).ToString(),
+                        TimeStamp = reader.GetDouble(5).ToString(),
                     });
                 }
             }
-            return WeatherMeasurementsList;
+            return weatherMeasumentList;
         }
 
-        public List<WeatherMeasument> GetWeatherMeasurement(string id)
+        public List<WeatherMeasurement> GetWeatherMeasurement(string id)
 
         {
-            List<WeatherMeasument> WeatherMeasurementsList = new List<WeatherMeasument>();
+            List<WeatherMeasurement> weatherMeasurementList = new List<WeatherMeasurement>();
 
             using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
 
@@ -66,7 +66,7 @@ namespace RestfullService
                 {
                     while (reader.Read())
                     {
-                        WeatherMeasurementsList.Add(new WeatherMeasument()
+                        weatherMeasurementList.Add(new WeatherMeasurement()
                         {
                             Id = reader.GetInt32(0),
                             Temperature = reader.GetDouble(1),
@@ -78,12 +78,12 @@ namespace RestfullService
                     }
                 }
             }
-            return WeatherMeasurementsList;
+            return weatherMeasurementList;
         }
 
-        public string AddWeatherMeasurement(WeatherMeasument weatherMeasument)
+        public string AddWeatherMeasurement(WeatherMeasurement weatherMeasurement)
         {
-            string insertStudent = $"insert into WeatherMeasurements (Temperature, Pressure, Humidity, WindSpeed, TimeStamp) values ('{weatherMeasument.Temperature}','{weatherMeasument.Pressure}','{weatherMeasument.Humidity}','{weatherMeasument.WindSpeed}','{weatherMeasument.TimeStamp}')" + "Select Scope_Identity()";
+            string insertStudent = $"insert into WeatherMeasurements (Temperature, Pressure, Humidity, WindSpeed, TimeStamp) values ('{weatherMeasurement.Temperature}','{weatherMeasurement.Pressure}','{weatherMeasurement.Humidity}','{weatherMeasurement.WindSpeed}','{weatherMeasurement.TimeStamp}')" + "Select Scope_Identity()";
             using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand insertCommand = new SqlCommand(insertStudent, databaseConnection))
@@ -107,11 +107,11 @@ namespace RestfullService
                 return response;
             }
         }
-        public string UpdateWeatherMeasurement(WeatherMeasument weatherMeasument, string id)
+        public string UpdateWeatherMeasurement(WeatherMeasurement weatherMeasurement, string id)
         {
             using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
             {
-                string command = $"UPDATE WeatherMeasurements SET Temperature = '{weatherMeasument.Temperature}', Pressure = '{weatherMeasument.Pressure}', Humidity = '{weatherMeasument.Humidity}', WindSpeed = '{weatherMeasument.WindSpeed}', TimeStamp = '{weatherMeasument.TimeStamp}'  WHERE Id = '{id}'";
+                string command = $"UPDATE WeatherMeasurements SET Temperature = '{weatherMeasurement.Temperature}', Pressure = '{weatherMeasurement.Pressure}', Humidity = '{weatherMeasurement.Humidity}', WindSpeed = '{weatherMeasurement.WindSpeed}', TimeStamp = '{weatherMeasurement.TimeStamp}'  WHERE Id = '{id}'";
                 databaseConnection.Open();
                 SqlCommand selectCommand = new SqlCommand(command, databaseConnection);
                 int rows = selectCommand.ExecuteNonQuery();

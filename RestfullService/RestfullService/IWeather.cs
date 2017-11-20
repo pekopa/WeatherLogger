@@ -13,16 +13,16 @@ namespace RestfullService
     {
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/")]
-        List<WeatherMeasument> GetWeatherMeasurements();
+        List<WeatherMeasurement> GetWeatherMeasurements();
 
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/{id}")]
-        List<WeatherMeasument> GetWeatherMeasurement(string id);
+        List<WeatherMeasurement> GetWeatherMeasurement(string id);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/")]
-        string AddWeatherMeasurement(WeatherMeasument weatherMeasument);
+        string AddWeatherMeasurement(WeatherMeasurement weatherMeasurement);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
@@ -32,11 +32,12 @@ namespace RestfullService
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/{id}")]
-        string UpdateWeatherMeasurement(WeatherMeasument weatherMeasument, string id);
+        string UpdateWeatherMeasurement(WeatherMeasurement weatherMeasurement, string id);
+
     }
 
     [DataContract]
-    public class WeatherMeasument
+    public class WeatherMeasurement
     {
         [DataMember]
         public int Id { get; set; }
