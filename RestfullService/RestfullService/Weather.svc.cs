@@ -38,7 +38,7 @@ namespace RestfullService
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetDouble(5).ToString(),
+                        TimeStamp = reader.GetDateTime(5).ToString(),
                     });
                 }
             }
