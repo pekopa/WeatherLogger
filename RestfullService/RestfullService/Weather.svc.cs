@@ -45,7 +45,7 @@ namespace RestfullService
             return weatherMeasumentList;
         }
 
-        public List<WeatherMeasurement> GetWeatherMeasurement(int id)
+        public List<WeatherMeasurement> GetWeatherMeasurement(string id)
 
         {
             List<WeatherMeasurement> weatherMeasurementList = new List<WeatherMeasurement>();
@@ -54,7 +54,7 @@ namespace RestfullService
 
             {
 
-                string command = $"SELECT * FROM WeatherMeasurements where id='{id}'";
+                string command = $"SELECT * FROM WeatherMeasurements where Id='{id}'";
 
                 databaseConnection.Open();
 
