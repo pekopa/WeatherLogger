@@ -24,7 +24,6 @@ namespace RestfullService
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/")]
         string AddWeatherMeasurement(WeatherMeasument weatherMeasument);
 
-
         [OperationContract]
         [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "WeatherMeasurements/{id}")]
@@ -34,7 +33,6 @@ namespace RestfullService
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/{id}")]
         string UpdateWeatherMeasurement(WeatherMeasument weatherMeasument, string id);
-
     }
 
     [DataContract]
