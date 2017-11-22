@@ -12,12 +12,8 @@ namespace WeatherReciever
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-
-
-
             using (UdpClient socket = new UdpClient(new IPEndPoint(IPAddress.Any, 7000)))
             {
                 IPEndPoint remoteEndPoint = new IPEndPoint(0, 0);
@@ -28,53 +24,18 @@ namespace WeatherReciever
                     byte[] datagramReceived = socket.Receive(ref remoteEndPoint);
 
                     string message = Encoding.ASCII.GetString(datagramReceived, 0, datagramReceived.Length);
-                    string[] parts = message.Split(' ');
+                    Console.WriteLine("Data From Raspberry PI");
                     Console.WriteLine(message);
 
+                    string[] parts = message.Split(' ');
+                    string serializedData = "{\"Humidity\":" + parts[1] + ",\"Pressure\":" + parts[3] + ",\"Temperature\":" + parts[5] + ",\"TimeStamp\":\"" + DateTime.Now + "\",\"WindSpeed\":" + parts[7] + "}";                   
+                    string response = PostApi.PostData("Weather.svc/WeatherMeasurements/", serializedData);
 
-                    HttpClientHandler handler = new HttpClientHandler() { UseDefaultCredentials = true };
-                    using (var client = new HttpClient(handler))
-                    {
-                        client.BaseAddress = new Uri("http://restfullservicefordatalogger.azurewebsites.net");
-                        client.DefaultRequestHeaders.Clear();
-                        client.DefaultRequestHeaders.Accept.Add(
-                            new MediaTypeWithQualityHeaderValue("application/json"));
-                        try
-                        {
-                            string serializedData =
-                                "{\"Humidity\":1.1,\"Pressure\":11.1,\"Temperature\":11.1,\"TimeStamp\":\"" +
-                                DateTime.Now + "\",\"WindSpeed\":1.1}";
-                            StringContent content =
-                                new StringContent(serializedData, Encoding.UTF8, "application/json");
-
-                            var response = client.PostAsync("Weather.svc/WeatherMeasurements/", content).Result;
-                            string result = response.Content.ReadAsStringAsync().Result;
-                            Console.WriteLine(result);
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }                       
-
-
-                        //IService1 asd = new Service1Client("BasicHttpsBinding_IService1");
-                        //try
-                        //{
-                        //    int response = asd.AddSensorInfo(int.Parse(parts[1]), int.Parse(parts[3]), int.Parse(parts[5]), int.Parse(parts[7]));
-                        //    Console.WriteLine(response + " - Lines affected");
-                        //    Console.WriteLine(message);
-                        //    Console.WriteLine();
-                        //}
-                        //catch (Exception e)
-                        //{
-                        //    Console.WriteLine(e);
-                        //}
-                    }
+                    Console.WriteLine("Response from database");
+                    Console.WriteLine(response);                
                 }
             }
-        }
-        
+        }        
     }
 }
 
