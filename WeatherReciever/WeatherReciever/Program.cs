@@ -31,6 +31,7 @@ namespace WeatherReciever
                     string[] parts = message.Split(' ');
                     Console.WriteLine(message);
 
+
                     HttpClientHandler handler = new HttpClientHandler() { UseDefaultCredentials = true };
                     using (var client = new HttpClient(handler))
                     {
