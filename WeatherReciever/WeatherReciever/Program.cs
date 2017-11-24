@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,24 +24,18 @@ namespace WeatherReciever
                     byte[] datagramReceived = socket.Receive(ref remoteEndPoint);
 
                     string message = Encoding.ASCII.GetString(datagramReceived, 0, datagramReceived.Length);
-                    string[] parts = message.Split(' ');
+                    Console.WriteLine("Data From Raspberry PI");
                     Console.WriteLine(message);
 
-                    //IService1 asd = new Service1Client("BasicHttpsBinding_IService1");
-                    //try
-                    //{
-                    //    int response = asd.AddSensorInfo(int.Parse(parts[1]), int.Parse(parts[3]), int.Parse(parts[5]), int.Parse(parts[7]));
-                    //    Console.WriteLine(response + " - Lines affected");
-                    //    Console.WriteLine(message);
-                    //    Console.WriteLine();
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    Console.WriteLine(e);
-                    //}
+                    string[] parts = message.Split(' ');
+                    string serializedData = "{\"Humidity\":" + parts[1] + ",\"Pressure\":" + parts[3] + ",\"Temperature\":" + parts[5] + ",\"TimeStamp\":\"" + DateTime.Now + "\",\"WindSpeed\":" + parts[7] + "}";                   
+                    string response = PostApi.PostData("Weather.svc/WeatherMeasurements/", serializedData);
+
+                    Console.WriteLine("Response from database");
+                    Console.WriteLine(response);                
                 }
             }
-        }
+        }        
     }
-    }
+}
 

@@ -71,7 +71,7 @@ namespace RestfullService
                             Pressure = reader.GetDouble(2),
                             Humidity = reader.GetDouble(3),
                             WindSpeed = reader.GetDouble(4),
-                            TimeStamp = reader.GetDouble(5).ToString(),
+                            TimeStamp = reader.GetDateTime(5).ToString(),
                         });
                     }               
             }
@@ -81,15 +81,11 @@ namespace RestfullService
         public string AddWeatherMeasurement(WeatherMeasurement weatherMeasurement)
         {
             string insertStudent = $"insert into WeatherMeasurements (Temperature, Pressure, Humidity, WindSpeed, TimeStamp) values ('{weatherMeasurement.Temperature}','{weatherMeasurement.Pressure}','{weatherMeasurement.Humidity}','{weatherMeasurement.WindSpeed}','{weatherMeasurement.TimeStamp}')" + "Select Scope_Identity()";
-            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand insertCommand = new SqlCommand(insertStudent, databaseConnection))
-                {
-                    databaseConnection.Open();
-                    int rows = insertCommand.ExecuteNonQuery();
-                    return "Rows Affected: " + rows + " ID: " + insertCommand.ExecuteScalar();
-                }
-            }
+            SqlConnection databaseConnection = new SqlConnection(ConnectionString);
+            databaseConnection.Open();
+            SqlCommand insertCommand = new SqlCommand(insertStudent, databaseConnection);
+            var rows = insertCommand.ExecuteScalar();
+            return " ID: " + rows;
         }
 
         public string DeleteWeatherMeasurement(string id)

@@ -5,3 +5,10 @@ C:\Users\Danix\Source\Repos\WeatherLogger\WeatherReciever\WeatherReciever\bin\De
 C:\Users\Danix\Source\Repos\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.pdb
 C:\Users\Danix\Source\Repos\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.exe
 C:\Users\Danix\Source\Repos\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.pdb
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.csprojResolveAssemblyReference.cache
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.csproj.CoreCompileInputs.cache
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.exe
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.pdb
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe.config
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe
+C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.pdb
