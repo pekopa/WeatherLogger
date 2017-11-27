@@ -20,6 +20,10 @@ namespace RestfullService
         List<WeatherMeasurement> GetWeatherMeasurement(string id);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/dateFrom={dateFrom}&dateTo={dateTo}")]
+        List<WeatherMeasurement> GetWeatherMeasurementByDate(string dateFrom,string dateTo);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/")]
         string AddWeatherMeasurement(WeatherMeasurement weatherMeasurement);
@@ -50,7 +54,7 @@ namespace RestfullService
         [DataMember]
         public double WindSpeed { get; set; }
         [DataMember]
-        public string TimeStamp { get; set; }
+        public int TimeStamp { get; set; }
     }
 }
 

@@ -38,7 +38,7 @@ namespace RestfullService
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetDateTime(5).ToString(),
+                        TimeStamp = reader.GetInt32(5)
                     });
                 }
             }
@@ -71,9 +71,42 @@ namespace RestfullService
                             Pressure = reader.GetDouble(2),
                             Humidity = reader.GetDouble(3),
                             WindSpeed = reader.GetDouble(4),
-                            TimeStamp = reader.GetDateTime(5).ToString(),
+                            TimeStamp = reader.GetInt32(5)
                         });
                     }               
+            }
+            return weatherMeasurementList;
+        }
+
+        public List<WeatherMeasurement> GetWeatherMeasurementByDate(string dateFrom, string dateTo)
+
+        {
+            List<WeatherMeasurement> weatherMeasurementList = new List<WeatherMeasurement>();
+
+            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
+
+            {
+
+                string command = $"SELECT * FROM WeatherMeasurements where TimeStamp between '{dateFrom}' and '{dateTo}'";
+
+                databaseConnection.Open();
+
+                SqlCommand selectCommand = new SqlCommand(command, databaseConnection);
+
+                var reader = selectCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    weatherMeasurementList.Add(new WeatherMeasurement()
+                    {
+                        Id = reader.GetInt32(0),
+                        Temperature = reader.GetDouble(1),
+                        Pressure = reader.GetDouble(2),
+                        Humidity = reader.GetDouble(3),
+                        WindSpeed = reader.GetDouble(4),
+                        TimeStamp = reader.GetInt32(5)
+                    });
+                }
             }
             return weatherMeasurementList;
         }

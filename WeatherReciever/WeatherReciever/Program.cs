@@ -26,9 +26,9 @@ namespace WeatherReciever
                     string message = Encoding.ASCII.GetString(datagramReceived, 0, datagramReceived.Length);
                     Console.WriteLine("Data From Raspberry PI");
                     Console.WriteLine(message);
-
+                    
                     string[] parts = message.Split(' ');
-                    string serializedData = "{\"Humidity\":" + parts[1] + ",\"Pressure\":" + parts[3] + ",\"Temperature\":" + parts[5] + ",\"TimeStamp\":\"" + DateTime.Now + "\",\"WindSpeed\":" + parts[7] + "}";                   
+                    string serializedData = "{\"Humidity\":" + parts[1] + ",\"Pressure\":" + parts[3] + ",\"Temperature\":" + parts[5] + ",\"TimeStamp\":\"" + DateTimeOffset.Now.ToUnixTimeSeconds() + "\",\"WindSpeed\":" + parts[7] + "}";                   
                     string response = PostApi.PostData("Weather.svc/WeatherMeasurements/", serializedData);
 
                     Console.WriteLine("Response from database");
