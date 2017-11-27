@@ -20,7 +20,7 @@ namespace RestfullService
         List<WeatherMeasurement> GetWeatherMeasurement(string id);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/dateFrom={dateFrom}&dateTo={dateTo}")]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, UriTemplate = "WeatherMeasurements/{dateFrom}/{dateTo}")]
         List<WeatherMeasurement> GetWeatherMeasurementByDate(string dateFrom,string dateTo);
 
         [OperationContract]
