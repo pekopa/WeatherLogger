@@ -30,7 +30,7 @@ namespace RestfullService
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped, UriTemplate = "WeatherMeasurements/{id}")]
+            BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/{id}")]
         string DeleteWeatherMeasurement(string id);
 
         [OperationContract]

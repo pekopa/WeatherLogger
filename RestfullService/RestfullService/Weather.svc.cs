@@ -118,7 +118,7 @@ namespace RestfullService
             databaseConnection.Open();
             SqlCommand insertCommand = new SqlCommand(insertStudent, databaseConnection);
             var rows = insertCommand.ExecuteScalar();
-            return " ID: " + rows;
+            return "ID: " + rows;
         }
 
         public string DeleteWeatherMeasurement(string id)

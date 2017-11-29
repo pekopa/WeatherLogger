@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfullService", "RestfullService\RestfullService.csproj", "{834C97E3-1138-4A23-A690-37509CDAFC6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfullServiceTests", "RestfullServiceTests\RestfullServiceTests.csproj", "{11E5F59B-33F9-47A1-A296-3BDEEE2C5D9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{834C97E3-1138-4A23-A690-37509CDAFC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834C97E3-1138-4A23-A690-37509CDAFC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834C97E3-1138-4A23-A690-37509CDAFC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E5F59B-33F9-47A1-A296-3BDEEE2C5D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E5F59B-33F9-47A1-A296-3BDEEE2C5D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E5F59B-33F9-47A1-A296-3BDEEE2C5D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E5F59B-33F9-47A1-A296-3BDEEE2C5D9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
