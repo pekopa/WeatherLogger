@@ -1,0 +1,10 @@
+em.wi.wi-wind.wi-strong-wind {
+	color: '#a200f1' !important;
+	transform: scale(2.5) !important;
+}
+
+div.label-avg {
+	display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
