@@ -1,9 +1,4 @@
 <?php
-$uri = "http://restfullservicefordatalogger.azurewebsites.net/Weather.svc/WeatherMeasurements/";
-$sensorWeatherJson = file_get_contents($uri);
-$convertToAssociativeArray = true;
-$sensorWeather = json_decode($sensorWeatherJson, $convertToAssociativeArray);
-
 require_once './vendor/autoload.php';
 Twig_Autoloader::register();
 
@@ -13,7 +8,28 @@ $twig = new Twig_Environment($loader, array(
 ));
 $template = $twig->loadTemplate('dashboard.html.twig');
 
+
+$prevDayTimestamp = strtotime('-1 day');
+
+$dateStart = $_GET['date-start'] ?: date('Y/m/d', $prevDayTimestamp);
+$dateEnd = $_GET['date-end'] ?: date('Y/m/d');
+
+$timestampStart = strtotime($dateStart) - (43200*2);
+$timestampEnd = strtotime($dateEnd) + (43200*2);
+
+$uri = "http://restfullservicefordatalogger.azurewebsites.net/Weather.svc/WeatherMeasurements/";
+$uriParams = (string)$timestampStart . '/' . (string)$timestampEnd;
+
+print_r($uri . $uriParams);
+
+$sensorWeatherJson = file_get_contents($uri . $uriParams);
+$convertToAssociativeArray = true;
+$sensorWeather = json_decode($sensorWeatherJson, $convertToAssociativeArray);
+
 function getMinValueByKey($weatherArray, $key) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$minValue;
 	foreach ($weatherArray as $i => $weather) {
 		if($i === 0 ) {
@@ -28,6 +44,9 @@ function getMinValueByKey($weatherArray, $key) {
 }
 
 function getMaxValueByKey($weatherArray, $key) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$minValue;
 	foreach ($weatherArray as $i => $weather) {
 		if($i === 0 ) {
@@ -42,6 +61,9 @@ function getMaxValueByKey($weatherArray, $key) {
 }
 
 function getAvgValueByKey($weatherArray, $key) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$data = array();
 
 	foreach ($weatherArray as $i => $value) {
@@ -54,6 +76,9 @@ function getAvgValueByKey($weatherArray, $key) {
 }
 
 function getMinValues($weatherArray) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$minValues = array();
 	foreach ($weatherArray[0] as $key => $value) {
 		$minValue = getMinValueByKey($weatherArray, $key);
@@ -64,6 +89,9 @@ function getMinValues($weatherArray) {
 }
 
 function getMaxValues($weatherArray) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$maxValues = array();
 	foreach ($weatherArray[0] as $key => $value) {
 		$maxValue = getMaxValueByKey($weatherArray, $key);
@@ -74,6 +102,9 @@ function getMaxValues($weatherArray) {
 }
 
 function getAvgValues($weatherArray) {
+	if ($weatherArray == null || count($weatherArray) == 0) {
+		return [];
+	}
 	$avgValues = array();
 	foreach ($weatherArray[0] as $key => $value) {
 		$avgValue = getAvgValueByKey($weatherArray, $key);
@@ -92,6 +123,8 @@ $parametersToTwig = array(
 	"latestWeater" => $sensorWeather[count($sensorWeather)-1],
 	"minSensorValues" => $minSensorValues,
 	"maxSensorValues" => $maxSensorValues,
-	"avgSensorValues" => $avgSensorValues
+	"avgSensorValues" => $avgSensorValues,
+	"dateStart" => $dateStart,
+	"dateEnd" => $dateEnd
 );
 echo $template->render($parametersToTwig);
