@@ -1,0 +1,51 @@
+em.wi.wi-wind.wi-strong-wind {
+	color: '#a200f1' !important;
+	transform: scale(2.5) !important;
+}
+
+div.label-avg {
+	display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#date-pickers {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	margin-top: 15px;
+	margin-bottom: 15px
+}
+
+#date-pickers .input-group.date {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+}
+
+#date-pickers .date-group {
+	display: flex !important;
+	flex-direction: column;
+	flex: auto;
+	margin-left: 4px;
+	margin-right: 4px
+}
+
+#date-pickers .input-group-addon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-self: stretch;
+}
+
+.input-group-btn {
+	flex: auto;
+	margin-top: 20px
+}
+
+.date-picker-form {
+	display: flex;
+	justify-content: center;
+}
