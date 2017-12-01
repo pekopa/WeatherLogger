@@ -49,3 +49,7 @@ div.label-avg {
 	display: flex;
 	justify-content: center;
 }
+
+span.date-label {
+	font-size: 1.5em
+}

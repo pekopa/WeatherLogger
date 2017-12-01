@@ -17,10 +17,10 @@ $dateEnd = $_GET['date-end'] ?: date('Y/m/d');
 $timestampStart = strtotime($dateStart) - (43200*2);
 $timestampEnd = strtotime($dateEnd) + (43200*2);
 
+print_r($timestampStart);
+
 $uri = "http://restfullservicefordatalogger.azurewebsites.net/Weather.svc/WeatherMeasurements/";
 $uriParams = (string)$timestampStart . '/' . (string)$timestampEnd;
-
-print_r($uri . $uriParams);
 
 $sensorWeatherJson = file_get_contents($uri . $uriParams);
 $convertToAssociativeArray = true;
@@ -125,6 +125,8 @@ $parametersToTwig = array(
 	"maxSensorValues" => $maxSensorValues,
 	"avgSensorValues" => $avgSensorValues,
 	"dateStart" => $dateStart,
-	"dateEnd" => $dateEnd
+	"dateEnd" => $dateEnd,
+	"timestampStart" => $timestampStart,
+	"timestampEnd" => $timestampEnd,
 );
 echo $template->render($parametersToTwig);

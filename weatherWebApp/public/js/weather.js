@@ -1,6 +1,22 @@
 var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
 	'July', 'August', 'September', 'October', 'November', 'December']
 
+
+function drawGraph(graphId, graphData) {
+
+	var chartOptions = {
+    responsive: true,
+    scaleLineColor: "rgba(0,0,0,.2)",
+    scaleGridLineColor: "rgba(0,0,0,.05)",
+    scaleFontColor: "#c5c7cc"
+  }
+
+	var chartElement = document.getElementById(graphId).getContext("2d");
+
+  window.myLine = new Chart(chartElement).Line(graphData, chartOptions);
+
+}
+
 function getDateLabels(data, format) {
 
 	seperators = format.match(/(\W)/g);
@@ -80,4 +96,157 @@ function getWeatherPropsData(data) {
   	pressure: pressure,
   	windSpeed: windSpeed
   }
+}
+
+function fetchWeatherData(timeStampStart, timeStampEnd) {
+
+	if (isNaN(timeStampStart) || isNaN(timeStampEnd)) {
+		return null;
+	}
+
+	var apiUrl = 'http://restfullservicefordatalogger.azurewebsites.net/Weather.svc/WeatherMeasurements/';
+	apiUrl += timeStampStart + "/" + timeStampEnd; 
+
+	console.log('tiimestamps')
+	console.log(apiUrl)
+
+	var proxy = 'https://cors-anywhere.herokuapp.com/';
+
+	var graphConfig = {
+    fillColor: "rgba(220,220,220,0.2)",
+    pointColor:"rgba(220,220,220,1)",
+    pointHighlightFill:"#fff",
+    pointHighlightStroke:"rgba(220,220,220,1)",
+    pointStrokeColor:"#fff",
+    strokeColor:"rgba(220,220,220,1)"
+  }
+
+	$.get(proxy+apiUrl, function(data) {
+
+		var labels = getDateLabels(data, 'HH:MM');
+
+		var latestWeater = data[data.length-1];
+		var minSensorValues = getMinValues(data);
+		var maxSensorValues = getMaxValues(data);
+		var avgSensorValues = getAvgValues(data);
+		var dataByProps = getWeatherPropsData(data);
+
+
+		console.log(latestWeater)
+		console.log(minSensorValues)
+		console.log(maxSensorValues)
+		console.log(avgSensorValues)
+		console.log(dataByProps)
+
+		var datasetSensorTemperature = {
+        data: dataByProps.temperature,
+        graphConfig
+    }
+
+		var SensorWindSpeedGraphData = {
+       datasets: [datasetSensorTemperature],
+       labels: labels
+    }
+
+    drawGraph('temperature-chart', SensorWindSpeedGraphData);
+	});
+}
+
+
+function getMinValueByKey(weatherArray, key) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	var minValue;
+
+	weatherArray.forEach(function(weather, i) {
+		if(i === 0 ) {
+			minValue = weather[key];
+		} else {
+			if(minValue > weather[key]) {
+				minValue = weather[key];
+			}
+		}
+	});
+
+	return minValue;
+}
+
+function getMaxValueByKey(weatherArray, key) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	var maxValue;
+
+	weatherArray.forEach(function(weather, i) {
+		if(i === 0 ) {
+			maxValue = weather[key];
+		} else {
+			if(maxValue < weather[key]) {
+				maxValue = weather[key];
+			}
+		}
+	});
+
+	return maxValue;
+}
+
+function getAvgValueByKey(weatherArray, key) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	data = [];
+	sum = 0;
+
+	weatherArray.forEach( function(value, i) {
+		data.push(weatherArray[i][key]);
+		sum += weatherArray[i][key];
+	});
+
+
+	average = sum/data.length;
+	average = Math.round(average, 2);
+	return average;
+}
+
+function getMinValues(weatherArray) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	minValues = [];
+
+	Object.keys(weatherArray[0]).forEach(function(key) {
+		minValue = getMinValueByKey(weatherArray, key);
+		minValues[key] = minValue;
+	});
+
+	return minValues;
+}
+
+function getMaxValues(weatherArray) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	maxValues = [];
+
+	Object.keys(weatherArray[0]).forEach(function(key) {
+		maxValue = getMaxValueByKey(weatherArray, key);
+		maxValues[key] = maxValue;
+	});
+
+	return maxValues;
+}
+
+function getAvgValues(weatherArray) {
+	if (weatherArray == null || weatherArray.length === 0) {
+		return [];
+	}
+	avgValues = [];
+
+	Object.keys(weatherArray[0]).forEach(function(key) {
+		avgValue = getAvgValueByKey(weatherArray, key);
+		avgValues[key] = avgValue;
+	});
+
+	return avgValues;
 }

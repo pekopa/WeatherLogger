@@ -13,6 +13,15 @@
     <!--Custom Font-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+    <script src="public/js/weather.js"></script>
+
+    <script>
+      function _fetchSensorData(evt) {
+        evt.preventDefault();
+        fetchWeatherData({{timestampStart}},{{timestampEnd}});
+      }
+    </script>
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -100,7 +109,7 @@
                     <div id='date-pickers'>
                       
                         <div class="date-group">
-                          <span>Start</span>
+                          <span class="date-label">Start</span>
                           <div class="input-group date" data-provide="datepicker"> 
                             <input value={{dateStart}} name="date-start" type="text" class="form-control">
                             <div class="input-group-addon">
@@ -110,7 +119,7 @@
                         </div>
 
                         <div class="date-group">
-                          <span>End</span>
+                          <span class="date-label">End</span>
                           <div class="input-group date" data-provide="datepicker">
                               <input value={{dateEnd}} name="date-end" type="text" class="form-control">
                               <div class="input-group-addon">
@@ -119,7 +128,7 @@
                           </div>
                         </div>
                         <div class="input-group-btn">
-                          <button type="submit" class="btn btn-primary">GO</button>
+                          <button type="submit" onclick="_fetchSensorData(event)" class="btn btn-primary">GO</button>
                         </div>
                     </div>
                   </form>
@@ -377,9 +386,11 @@
     <script src="public/js/easypiechart-data.js"></script>
     <script src="public/js/bootstrap-datepicker.js"></script>
     <script src="public/js/custom.js"></script>
-    <script src="public/js/weather.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"></script>
 
+    <script>
+     
+    </script>
      
     <script>
 
@@ -433,7 +444,7 @@
             labels: labels
         }
 
-         var WindSpeedGraphData = {
+        var WindSpeedGraphData = {
             datasets: [datasetWindSpeed],
             labels: labels
         }
