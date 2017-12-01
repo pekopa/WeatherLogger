@@ -18,7 +18,6 @@ namespace RestfullService
             List<WeatherMeasurement> weatherMeasumentList = new List<WeatherMeasurement>();
 
             using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-
             {
 
                 string command = "SELECT * FROM WeatherMeasurements";
