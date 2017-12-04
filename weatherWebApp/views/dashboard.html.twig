@@ -18,7 +18,16 @@
     <script>
       function _fetchSensorData(evt) {
         evt.preventDefault();
-        fetchWeatherData({{timestampStart}},{{timestampEnd}});
+        var dateStart = $('#date-start').val(),
+        dateEnd = $('#date-end').val(),
+        timestampStart = new Date(dateStart).getTime()/1000 - 60*60*12,
+        timestampEnd = new Date(dateEnd).getTime()/1000 + 60*60*12;
+
+        console.log('DATE START')
+        console.log(timestampStart)
+        console.log('DATE END')
+        console.log(timestampEnd)
+        fetchWeatherData(timestampStart, timestampEnd);
       }
     </script>
 
@@ -111,7 +120,12 @@
                         <div class="date-group">
                           <span class="date-label">Start</span>
                           <div class="input-group date" data-provide="datepicker"> 
-                            <input value={{dateStart}} name="date-start" type="text" class="form-control">
+                            <input 
+{#                               value={{dateStart}}  #}
+                              name="date-start" 
+                              id='date-start'
+                              class="form-control"
+                            >
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                             </div>
@@ -121,7 +135,12 @@
                         <div class="date-group">
                           <span class="date-label">End</span>
                           <div class="input-group date" data-provide="datepicker">
-                              <input value={{dateEnd}} name="date-end" type="text" class="form-control">
+                              <input 
+{#                                 value={{dateEnd}}  #}
+                                name="date-end" 
+                                id='date-end' 
+                                class="form-control"
+                              >
                               <div class="input-group-addon">
                                   <span class="glyphicon glyphicon-th"></span>
                               </div>

@@ -12,7 +12,6 @@ function drawGraph(graphId, graphData) {
   }
 
 	var chartElement = document.getElementById(graphId).getContext("2d");
-
   window.myLine = new Chart(chartElement).Line(graphData, chartOptions);
 
 }
@@ -131,24 +130,69 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
 		var avgSensorValues = getAvgValues(data);
 		var dataByProps = getWeatherPropsData(data);
 
-
-		console.log(latestWeater)
-		console.log(minSensorValues)
-		console.log(maxSensorValues)
-		console.log(avgSensorValues)
 		console.log(dataByProps)
-
+		// 	TEMPERATURE
 		var datasetSensorTemperature = {
         data: dataByProps.temperature,
         graphConfig
     }
-
-		var SensorWindSpeedGraphData = {
+		var SensorTemperatureGraphData = {
        datasets: [datasetSensorTemperature],
        labels: labels
     }
 
-    drawGraph('temperature-chart', SensorWindSpeedGraphData);
+    // HUMIDITY
+    var datasetSensorHumidity = {
+        data: dataByProps.humidity,
+        graphConfig
+    }
+		var SensorHumidityGraphData = {
+       datasets: [datasetSensorHumidity],
+       labels: labels
+    }
+
+    // PRESSURE
+    var datasetSensorPressure = {
+        data: dataByProps.pressure,
+        graphConfig
+    }
+		var SensorPressureGraphData = {
+       datasets: [datasetSensorPressure],
+       labels: labels
+    }
+
+    // HUMIDITY
+    var datasetSensorHumidity = {
+        data: dataByProps.humidity,
+        graphConfig
+    }
+		var SensorHumidityGraphData = {
+       datasets: [datasetSensorHumidity],
+       labels: labels
+    }
+
+    // WIND SPEED
+    var datasetSensorWindSpeed = {
+        data: dataByProps.windSpeed,
+        graphConfig
+    }
+		var SensorWindSpeedGraphData = {
+       datasets: [datasetSensorWindSpeed],
+       labels: labels
+    }
+
+    var url = "../../controllers/_3rdPartyWeather.php?date-start="+timeStampStart+"&date-end="+timeStampEnd;
+
+    $.get(url, function(data) {
+    	console.log('OPEN WEATHER')
+    	var apiWeather = JSON.parse(data);
+    	console.log(apiWeather)
+    });
+
+    drawGraph('temperature-chart', SensorTemperatureGraphData);
+    drawGraph('humidity-chart', SensorHumidityGraphData);
+    drawGraph('pressure-chart', SensorPressureGraphData);
+		drawGraph('windSpeed-chart', SensorWindSpeedGraphData);
 	});
 }
 
