@@ -38,7 +38,7 @@ namespace RestfullService
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetInt32(5)
+                        TimeStamp = reader.GetDouble(5)
                     });
                 }
             }
@@ -71,7 +71,7 @@ namespace RestfullService
                             Pressure = reader.GetDouble(2),
                             Humidity = reader.GetDouble(3),
                             WindSpeed = reader.GetDouble(4),
-                            TimeStamp = reader.GetInt32(5)
+                            TimeStamp = reader.GetDouble(5)
                         });
                     }               
             }
@@ -104,7 +104,7 @@ namespace RestfullService
                         Pressure = reader.GetDouble(2),
                         Humidity = reader.GetDouble(3),
                         WindSpeed = reader.GetDouble(4),
-                        TimeStamp = reader.GetInt32(5)
+                        TimeStamp = reader.GetDouble(5)
                     });
                 }
             }

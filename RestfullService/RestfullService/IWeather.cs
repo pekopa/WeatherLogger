@@ -54,7 +54,7 @@ namespace RestfullService
         [DataMember]
         public double WindSpeed { get; set; }
         [DataMember]
-        public int TimeStamp { get; set; }
+        public double TimeStamp { get; set; }
     }
 }
 
