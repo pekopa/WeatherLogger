@@ -37,7 +37,6 @@ namespace RestfullService
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "WeatherMeasurements/{id}")]
         string UpdateWeatherMeasurement(WeatherMeasurement weatherMeasurement, string id);
-
     }
 
     [DataContract]
