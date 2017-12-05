@@ -26,9 +26,9 @@ namespace WeatherReciever
                     string result = response.Content.ReadAsStringAsync().Result;
                     return result;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    return null;
+                    return e.Message;
                 }
             }
         }
