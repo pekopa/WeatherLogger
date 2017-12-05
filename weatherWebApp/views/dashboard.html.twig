@@ -23,10 +23,6 @@
         timestampStart = new Date(dateStart).getTime()/1000 - 60*60*12,
         timestampEnd = new Date(dateEnd).getTime()/1000 + 60*60*12;
 
-        console.log('DATE START')
-        console.log(timestampStart)
-        console.log('DATE END')
-        console.log(timestampEnd)
         fetchWeatherData(timestampStart, timestampEnd);
       }
     </script>
@@ -121,7 +117,7 @@
                           <span class="date-label">Start</span>
                           <div class="input-group date" data-provide="datepicker"> 
                             <input 
-{#                               value={{dateStart}}  #}
+                              {# value={{dateStart}}  #}
                               name="date-start" 
                               id='date-start'
                               class="form-control"
@@ -136,7 +132,7 @@
                           <span class="date-label">End</span>
                           <div class="input-group date" data-provide="datepicker">
                               <input 
-{#                                 value={{dateEnd}}  #}
+                                {# value={{dateEnd}}  #}
                                 name="date-end" 
                                 id='date-end' 
                                 class="form-control"
@@ -188,8 +184,19 @@
                         </ul>
                         <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
                     <div class="panel-body">
-                        <div class="canvas-wrapper">
+                        <div class="canvas-wrapper temperature-chart">
                             <canvas class="main-chart" id="temperature-chart" height="200" width="600"></canvas>
+                        </div>
+                        <div class="legend">
+                          <div class="legend-group">
+                            <div class="sensor"></div>
+                            <div class="legend-label">Sensor data</div>
+                          </div>
+                          
+                          <div class="legend-group">
+                            <div class="api"></div>
+                            <div class="legend-label">OpenWeatherMap data</div>
+                          </div>   
                         </div>
                     </div>
                 </div>
@@ -226,7 +233,7 @@
                         </ul>
                         <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
                     <div class="panel-body">
-                        <div class="canvas-wrapper">
+                        <div class="canvas-wrapper humidity-chart">
                             <canvas class="main-chart" id="humidity-chart" height="200" width="600"></canvas>
                         </div>
                     </div>
@@ -264,7 +271,7 @@
                         </ul>
                         <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
                     <div class="panel-body">
-                        <div class="canvas-wrapper">
+                        <div class="canvas-wrapper pressure-chart">
                             <canvas class="main-chart" id="pressure-chart" height="200" width="600"></canvas>
                         </div>
                     </div>
@@ -302,7 +309,7 @@
                         </ul>
                         <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
                     <div class="panel-body">
-                        <div class="canvas-wrapper">
+                        <div class="canvas-wrapper windSpeed-chart">
                             <canvas class="main-chart" id="windSpeed-chart" height="200" width="600"></canvas>
                         </div>
                     </div>
@@ -415,6 +422,19 @@
 
     window.onload = function () {
 
+        var dateNow = new Date(),
+        day = dateNow.getDate(),
+        month = dateNow.getMonth()+1,
+        year = dateNow.getFullYear(),
+        fullDate = month + "/" + day + "/" + year;
+        $('#date-start').val(fullDate);
+        $('#date-end').val(fullDate);
+
+        timestampStart = new Date(fullDate).getTime()/1000 - 60*60*12,
+        timestampEnd = new Date(fullDate).getTime()/1000 + 60*60*12;
+
+        fetchWeatherData(timestampStart, timestampEnd);
+
         var sensorWeatherData = {{ sensorWeather|json_encode|raw }};
         var labels = getDateLabels(sensorWeatherData, 'HH:MM');
         var weatherPropsData = getWeatherPropsData(sensorWeatherData);
@@ -469,37 +489,37 @@
         }
 
 
-        var temperatureChart = document.getElementById("temperature-chart").getContext("2d");
-        window.myLine = new Chart(temperatureChart).Line(TemperatureGraphData, {
-          responsive: true,
-          scaleLineColor: "rgba(0,0,0,.2)",
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          scaleFontColor: "#c5c7cc"
-        });
+    //     var temperatureChart = document.getElementById("temperature-chart").getContext("2d");
+    //     window.myLine = new Chart(temperatureChart).Line(TemperatureGraphData, {
+    //       responsive: true,
+    //       scaleLineColor: "rgba(0,0,0,.2)",
+    //       scaleGridLineColor: "rgba(0,0,0,.05)",
+    //       scaleFontColor: "#c5c7cc"
+    //     });
 
-        var humidityChart = document.getElementById("humidity-chart").getContext("2d");
-        window.myLine = new Chart(humidityChart).Line(HumidityGraphData, {
-          responsive: true,
-          scaleLineColor: "rgba(0,0,0,.2)",
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          scaleFontColor: "#c5c7cc"
-        });
+    //     var humidityChart = document.getElementById("humidity-chart").getContext("2d");
+    //     window.myLine = new Chart(humidityChart).Line(HumidityGraphData, {
+    //       responsive: true,
+    //       scaleLineColor: "rgba(0,0,0,.2)",
+    //       scaleGridLineColor: "rgba(0,0,0,.05)",
+    //       scaleFontColor: "#c5c7cc"
+    //     });
 
-        var pressureChart = document.getElementById("pressure-chart").getContext("2d");
-        window.myLine = new Chart(pressureChart).Line(PressureGraphData, {
-          responsive: true,
-          scaleLineColor: "rgba(0,0,0,.2)",
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          scaleFontColor: "#c5c7cc"
-        });  
+    //     var pressureChart = document.getElementById("pressure-chart").getContext("2d");
+    //     window.myLine = new Chart(pressureChart).Line(PressureGraphData, {
+    //       responsive: true,
+    //       scaleLineColor: "rgba(0,0,0,.2)",
+    //       scaleGridLineColor: "rgba(0,0,0,.05)",
+    //       scaleFontColor: "#c5c7cc"
+    //     });  
 
-        var windSpeedChart = document.getElementById("windSpeed-chart").getContext("2d");
-        window.myLine = new Chart(windSpeedChart).Line(WindSpeedGraphData, {
-          responsive: true,
-          scaleLineColor: "rgba(0,0,0,.2)",
-          scaleGridLineColor: "rgba(0,0,0,.05)",
-          scaleFontColor: "#c5c7cc"
-        });
+    //     var windSpeedChart = document.getElementById("windSpeed-chart").getContext("2d");
+    //     window.myLine = new Chart(windSpeedChart).Line(WindSpeedGraphData, {
+    //       responsive: true,
+    //       scaleLineColor: "rgba(0,0,0,.2)",
+    //       scaleGridLineColor: "rgba(0,0,0,.05)",
+    //       scaleFontColor: "#c5c7cc"
+    //     });
     };
     </script>
         
