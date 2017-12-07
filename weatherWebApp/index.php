@@ -8,13 +8,12 @@ $twig = new Twig_Environment($loader, array(
 ));
 $template = $twig->loadTemplate('dashboard.html.twig');
 
-
 $prevDayTimestamp = strtotime('-1 day');
 
 $dateStart = $_GET['date-start'] ?: date('Y/m/d', $prevDayTimestamp);
 $dateEnd = $_GET['date-end'] ?: date('Y/m/d');
 
-$timestampStart = strtotime($dateStart) - (43200*2);
+$timestampStart = strtotime($dateStart) - (43200*5);
 $timestampEnd = strtotime($dateEnd) + (43200*2);
 
 print_r($timestampStart);

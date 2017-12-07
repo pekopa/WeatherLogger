@@ -189,12 +189,12 @@
                         </div>
                         <div class="legend">
                           <div class="legend-group">
-                            <div class="sensor"></div>
+                            <div class="sensor color"></div>
                             <div class="legend-label">Sensor data</div>
                           </div>
                           
                           <div class="legend-group">
-                            <div class="api"></div>
+                            <div class="api color"></div>
                             <div class="legend-label">OpenWeatherMap data</div>
                           </div>   
                         </div>
@@ -236,6 +236,17 @@
                         <div class="canvas-wrapper humidity-chart">
                             <canvas class="main-chart" id="humidity-chart" height="200" width="600"></canvas>
                         </div>
+                         <div class="legend">
+                            <div class="legend-group">
+                              <div class="sensor color"></div>
+                              <div class="legend-label">Sensor data</div>
+                            </div>
+                            
+                            <div class="legend-group">
+                              <div class="api color"></div>
+                              <div class="legend-label">OpenWeatherMap data</div>
+                            </div>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,6 +284,17 @@
                     <div class="panel-body">
                         <div class="canvas-wrapper pressure-chart">
                             <canvas class="main-chart" id="pressure-chart" height="200" width="600"></canvas>
+                        </div>
+                         <div class="legend">
+                            <div class="legend-group">
+                              <div class="sensor color"></div>
+                              <div class="legend-label">Sensor data</div>
+                            </div>
+                            
+                            <div class="legend-group">
+                              <div class="api color"></div>
+                              <div class="legend-label">OpenWeatherMap data</div>
+                            </div>   
                         </div>
                     </div>
                 </div>
@@ -312,6 +334,17 @@
                         <div class="canvas-wrapper windSpeed-chart">
                             <canvas class="main-chart" id="windSpeed-chart" height="200" width="600"></canvas>
                         </div>
+                         <div class="legend">
+                            <div class="legend-group">
+                              <div class="sensor color"></div>
+                              <div class="legend-label">Sensor data</div>
+                            </div>
+                            
+                            <div class="legend-group">
+                              <div class="api color"></div>
+                              <div class="legend-label">OpenWeatherMap data</div>
+                            </div>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -335,7 +368,7 @@
                         <h4>Temperature (&#8451;)</h4>
                         <div 
                           class="easypiechart" 
-                          id="easypiechart-blue" 
+                          id="easypiechart-blue"
                           data-percent={{(100/maxSensorValues.Temperature)*avgSensorValues.Temperature}} 
                         >
                           <span class="percent">{{avgSensorValues.Temperature}}</span>
@@ -430,7 +463,7 @@
         $('#date-start').val(fullDate);
         $('#date-end').val(fullDate);
 
-        timestampStart = new Date(fullDate).getTime()/1000 - 60*60*12,
+        timestampStart = new Date(fullDate).getTime()/1000 - 60*60*150,
         timestampEnd = new Date(fullDate).getTime()/1000 + 60*60*12;
 
         fetchWeatherData(timestampStart, timestampEnd);
@@ -487,6 +520,8 @@
             datasets: [datasetWindSpeed],
             labels: labels
         }
+
+        // drawGraph('temperature-chart', TemperatureGraphData);
 
 
     //     var temperatureChart = document.getElementById("temperature-chart").getContext("2d");

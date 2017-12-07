@@ -17,6 +17,7 @@ div.label-avg {
 	flex-wrap: wrap;
 	margin-top: 15px;
 	margin-bottom: 15px;
+	width: 90%;
 }
 
 #date-pickers .input-group.date {
@@ -41,8 +42,14 @@ div.label-avg {
 }
 
 .input-group-btn {
+	display: flex;
 	flex: auto;
 	margin-top: 20px;
+	justify-content: center;
+}
+
+.input-group-btn button {
+	width: 90%;
 }
 
 .date-picker-form {
@@ -58,25 +65,30 @@ span.date-label {
 	height: 50px;
 	display: flex;
 	flex-direction: row;
-	align-content: flex-end;
-	justify-content: space-around;
+	align-content: center;
 }
 
 .legend-group {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 	align-items: center;
+	margin-left: 15px;
+}
+
+.legend .color {
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
 }
 
 .legend .sensor {
-	width: 30px;
-	height: 30px;
 	background: #f00;
 }
 
 .legend .api {
-	width: 30px;
-	height: 30px;
 	background: #00f;
+}
+
+.legend-label {
+	margin-left: 7px;
 }

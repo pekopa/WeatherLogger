@@ -26,10 +26,16 @@ var resetCanvas = function(canvasId){
   ctx.canvas.height = $('.canvas-wrapper.'+canvasId).height(); // resize to parent height
   var x = canvas.width/2;
   var y = canvas.height/2;
-  // ctx.font = '10pt Verdana';
-  // ctx.textAlign = 'center';
-  // ctx.fillText('This text is centered on the canvas', x, y);
 };
+
+function drawPieChart(id, minValue, maxValue, averageValue) {
+	var percent = (100/maxValue)*averageValue;
+	var element = '<div class="easypiechart" id="'+id+'" data-percent="'+ 100 +'"></div>';
+
+	$('#'+id).easyPieChart({
+      barColor: 'red'
+  });
+}
 
 function getDateLabels(data, format) {
 
@@ -132,6 +138,25 @@ function getOpenWeatherProps(data) {
   }
 }
 
+
+var sensorGraphConfig = {
+  fillColor: "rgba(220,220,220,0)",
+  pointColor:"rgba(0,0,255,1)",
+  pointHighlightFill:"#fff",
+  pointHighlightStroke:"rgba(0,0,255,1)",
+  pointStrokeColor:"#fff",
+  strokeColor:"rgba(0,0,255,1)"
+}
+
+var openWeatherGraphConfig = {
+  fillColor: "rgba(255,0,0,0)",
+  pointColor:"rgba(255,0,0,1)",
+  pointHighlightFill:"#fff",
+  pointHighlightStroke:"rgba(220,220,220,1)",
+  pointStrokeColor:"#fff",
+  strokeColor:"rgba(255,0,0,1)"
+}
+
 function fetchWeatherData(timeStampStart, timeStampEnd) {
 
 	if (isNaN(timeStampStart) || isNaN(timeStampEnd)) {
@@ -143,24 +168,6 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
 
 	var proxy = 'https://cors-anywhere.herokuapp.com/';
 
-	var sensorGraphConfig = {
-    fillColor: "rgba(220,220,220,0)",
-    pointColor:"rgba(0,0,255,1)",
-    pointHighlightFill:"#fff",
-    pointHighlightStroke:"rgba(0,0,255,1)",
-    pointStrokeColor:"#fff",
-    strokeColor:"rgba(0,0,255,1)"
-  }
-
-  var openWeatherGraphConfig = {
-    fillColor: "rgba(255,0,0,0)",
-    pointColor:"rgba(255,0,0,1)",
-    pointHighlightFill:"#fff",
-    pointHighlightStroke:"rgba(220,220,220,1)",
-    pointStrokeColor:"#fff",
-    strokeColor:"rgba(255,0,0,1)"
-  }
-
 	$.get(proxy+apiUrl, function(data) {
 
 		var labels = getDateLabels(data, 'HH:MM');
@@ -170,6 +177,9 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
 		var maxSensorValues = getMaxValues(data);
 		var avgSensorValues = getAvgValues(data);
 		var dataByProps = getWeatherPropsData(data);
+
+		console.log('MIN')
+		console.log(minSensorValues)
 
 		// 	TEMPERATURE
 		var datasetSensorTemperature = sensorGraphConfig;
@@ -229,6 +239,8 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
 	    drawGraph('humidity-chart', SensorHumidityGraphData);
 	    drawGraph('pressure-chart', SensorPressureGraphData);
 			drawGraph('windSpeed-chart', SensorWindSpeedGraphData);
+
+			drawPieChart('easypiechart-blue');
     });
 	});
 }
