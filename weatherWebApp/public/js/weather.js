@@ -11,10 +11,22 @@ function drawGraph(graphId, graphData) {
     scaleFontColor: "#c5c7cc"
   }
 
-  resetCanvas(graphId);
+	resetCanvas(graphId);
 	var canvasCtx = document.getElementById(graphId).getContext("2d");
-	canvasCtx.clearRect(0, 0, 10000, 100000);
   window.myLine = new Chart(canvasCtx).Line(graphData, chartOptions);
+}
+
+function updateWeatherProp(weatherDataByProp, prop) {
+	var lastIndex = weatherDataByProp.length -1;
+	var currentWeatherValue = weatherDataByProp[lastIndex];
+	$('#current-'+prop).text(currentWeatherValue);
+}
+
+function showCurrentWeather(weatherData) {
+	console.log(weatherData)
+	Object.keys(weatherData).forEach(function(prop) {
+		updateWeatherProp(weatherData[prop], prop);
+	});
 }
 
 var resetCanvas = function(canvasId){
@@ -178,9 +190,6 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
 		var avgSensorValues = getAvgValues(data);
 		var dataByProps = getWeatherPropsData(data);
 
-		console.log('MIN')
-		console.log(minSensorValues)
-
 		// 	TEMPERATURE
 		var datasetSensorTemperature = sensorGraphConfig;
 		datasetSensorTemperature.data = dataByProps.temperature;
@@ -234,6 +243,8 @@ function fetchWeatherData(timeStampStart, timeStampEnd) {
     	SensorHumidityGraphData.datasets.push(openWeatherDatasets.humidity);
     	SensorPressureGraphData.datasets.push(openWeatherDatasets.pressure);
     	SensorWindSpeedGraphData.datasets.push(openWeatherDatasets.windSpeed);
+
+    	showCurrentWeather(dataByProps);
 
     	drawGraph('temperature-chart', SensorTemperatureGraphData);
 	    drawGraph('humidity-chart', SensorHumidityGraphData);
