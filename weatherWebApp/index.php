@@ -4,14 +4,15 @@ Twig_Autoloader::register();
 
 $loader = new Twig_Loader_Filesystem('./views');
 $twig = new Twig_Environment($loader, array(
-    'auto_reload' => true
+    'auto_reload' => true,
+    'optimizations' => 0
 ));
 $template = $twig->loadTemplate('dashboard.html.twig');
 
 $prevDayTimestamp = strtotime('-1 day');
 
-$dateStart = $_GET['date-start'] ?: date('Y/m/d', $prevDayTimestamp);
-$dateEnd = $_GET['date-end'] ?: date('Y/m/d');
+$dateStart = ($_GET && $_GET['date-start']) ?: date('Y/m/d', $prevDayTimestamp);
+$dateEnd = ($_GET && $_GET['date-end']) ?: date('Y/m/d');
 
 $timestampStart = strtotime($dateStart) - (43200*5);
 $timestampEnd = strtotime($dateEnd) + (43200*2);
@@ -68,7 +69,7 @@ function getAvgValueByKey($weatherArray, $key) {
 	foreach ($weatherArray as $i => $value) {
 		array_push($data, $weatherArray[$i][$key]);
 	}
-
+	
 	$average = array_sum($data)/count($data);
 	$average = round($average, 2);
 	return $average;
@@ -117,6 +118,10 @@ $minSensorValues = getMinValues($sensorWeather);
 $maxSensorValues = getMaxValues($sensorWeather);
 $avgSensorValues = getAvgValues($sensorWeather);;
 
+if (count($sensorWeather) === 0) {
+	$sensorWeather = array(1);
+}
+
 $parametersToTwig = array(
 	"sensorWeather" => $sensorWeather,
 	"latestWeater" => $sensorWeather[count($sensorWeather)-1],
@@ -128,4 +133,5 @@ $parametersToTwig = array(
 	"timestampStart" => $timestampStart,
 	"timestampEnd" => $timestampEnd,
 );
+
 echo $template->render($parametersToTwig);
