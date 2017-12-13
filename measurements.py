@@ -57,7 +57,8 @@ while (True):
 data = reading
 ba = bytearray(struct.pack("f", data))
 	
-	BROADCAST_TO_PORT = 7000 
+BROADCAST_TO_PORT = 7000 
+
 s = socket(AF_INET, SOCK_DGRAM)
 #s.bind(('', 14593))     # (ip, port)
 # no explicit bind: will bind to default IP + random port
