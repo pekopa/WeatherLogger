@@ -10,7 +10,7 @@ namespace WeatherReciever
 {
     public static class PostApi
     {
-        private const string ServerUrl = "http://restfullservicefordatalogger.azurewebsites.net";
+        private const string ServerUrl = "http://localhost:61066/";
         public static string PostData(string url, string objectToPost)
         {
             HttpClientHandler handler = new HttpClientHandler() { UseDefaultCredentials = true };

@@ -12,3 +12,10 @@ C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\ob
 C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe.config
 C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe
 C:\Users\Danix\Documents\GitHub\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.pdb
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe.config
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.exe
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\bin\Debug\WeatherReciever.pdb
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.csprojResolveAssemblyReference.cache
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.exe
+C:\Users\Bruger\Desktop\Projects\Semester3\Full_Project\WeatherLogger\WeatherReciever\WeatherReciever\obj\Debug\WeatherReciever.pdb
